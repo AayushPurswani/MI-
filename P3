@@ -11,6 +11,7 @@ start: nop
 	LDA 2000H 
 	MOV C, A
 	LXI H, 2000H
+	MVI A, 00H ;resetting the Accumulator
 LOOP1:	INX H
 	DCR C 
 	JZ END 
