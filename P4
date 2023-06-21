@@ -1,0 +1,34 @@
+
+;<Program title>
+
+jmp start
+
+;data
+
+
+;code
+start: nop
+	MVI C, 0AH ;count of array
+	LXI H, 8000H ;start of array 
+	LXI D, 9000H ; start of storing of negative numbers 
+LOOP: 	MOV A, M 
+	RAL 
+	JC NEG
+	INX H 
+	INR B
+	DCR C 
+	JNZ LOOP
+hlt   
+	
+
+
+NEG: 	MOV A, M 
+	STAX D
+	INX D 
+	DCR C 
+	INX H   
+	JMP LOOP
+	
+
+
+hlt

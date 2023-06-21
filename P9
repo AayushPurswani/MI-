@@ -1,0 +1,41 @@
+
+;<Program title>
+
+jmp start
+
+;data
+
+
+;code
+start: nop
+	LXI H, 2500H ; start of array
+	MVI B, 0BH ; size of array 
+LOOP:	DCR B
+	JZ END	
+	MOV A, M
+	ANI 0FH ; for LSB
+	MOV E, A
+	MOV A, M
+	ANI 0F0H ;for MSB
+	RAR
+	RAR
+	RAR
+	RAR
+	MOV D, A
+	MVI A, 00H
+	MVI C, 0AH
+LOOP2: 	ADD D
+	DCR C
+	JNZ LOOP2
+	ADD E
+	MVI H, 40H
+	XCHG 
+	STAX D 
+	XCHG 
+	MVI H, 25H
+	INX H 
+	JMP LOOP
+	
+END: 	MVI A, 00H ; garbage line so it does not throw an error,otherwise it only exists to conclude the program
+
+hlt

@@ -1,0 +1,36 @@
+
+;<Program title>
+
+jmp start
+
+;data
+
+
+;code
+start: nop
+	LXI H, 0C001H
+	MVI E, 05H	
+LOOP1:	MVI C, 00H
+	MVI B, 09H 	
+	MOV A, M
+LOOP2: 	DCR B
+	JZ LOOP3
+	RAL
+	JNC LOOP2
+	INR C
+	JMP LOOP2	
+LOOP3:	MOV A, C
+	MVI H, 0D0H 
+	XCHG
+	STAX D
+	XCHG 
+	MVI H, 0C0H
+	INX H 
+	DCR E
+	JNZ LOOP1	 
+
+HLT
+
+	
+	
+	 

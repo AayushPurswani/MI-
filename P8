@@ -1,0 +1,32 @@
+
+;<Program title>
+
+jmp start
+
+;data
+
+
+;code
+start: nop
+	LXI H, 1042H
+	LXI D, 1052H 
+	MVI B, 08H 
+LOAD: 	MOV A, M
+	MOV C, A 
+	XCHG 
+	MOV A, M
+	XCHG  
+	CMP C 
+	JNZ UNEQ
+	INX H
+	INX D
+	DCR B 
+	JNZ LOAD
+	MVI A, 00H 
+	STA 1040H
+hlt	
+	
+
+UNEQ: 	MVI A, 0FFH
+	STA 1040H 
+hlt

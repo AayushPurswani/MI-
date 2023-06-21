@@ -1,0 +1,24 @@
+
+;<Program title>
+
+jmp start
+
+;data
+
+
+;code
+start: nop
+	LDA 2000H 
+	MOV C, A
+	LXI H, 2000H
+LOOP1:	INX H
+	DCR C 
+	JZ END 
+	MOV B, M
+	CMP B 
+	JNC LOOP1
+	MOV A, M  
+	 
+END:	STA 3000H  	
+
+hlt

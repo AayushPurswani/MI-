@@ -1,0 +1,31 @@
+
+;<Program title>
+
+jmp start
+
+;data
+
+
+;code
+start: nop
+	LXI H, 1FFFH
+	MVI C, 15H
+	LXI D, 2100H
+LOOP1:	INX H
+	DCR C
+	JZ END
+ 	MOV A, M 
+	CPI 41H 
+	JNC LOOP1
+	CPI 19H 
+	JZ LOOP1
+	CPI 19H 
+	JNC UPDATE
+hlt
+
+UPDATE: STAX D
+	JMP LOOP1
+	
+END: 	MVI A, 00H ;garbage line
+
+hlt

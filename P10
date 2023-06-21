@@ -1,0 +1,38 @@
+
+;<Program title>
+
+jmp start
+
+;data
+
+
+;code
+start: nop
+	LXI H,0000H ;original 15 numbers starting position
+	LXI D,1000H ;new array storing position 
+	MVI C, 0FH ;array size
+	MVI B, 00H ;new array size
+LOOP1: 	MOV A, M
+	CPI 00H 
+	JNZ NEW 
+	INX H 
+	DCR C
+	JZ NEXT
+	JMP LOOP1
+
+NEW: 	STAX D 
+	INX D
+	INX H 
+	INR B
+	DCR C  
+	JZ NEXT	
+	JMP LOOP1
+
+NEXT: 	XCHG ;new array's starting position is now in HL pair
+	MOV A, M 
+LOOP2: 	INX H 
+	ADC M 
+	DCR B ;new array size
+	JNZ LOOP2
+	
+hlt

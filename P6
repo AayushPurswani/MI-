@@ -1,0 +1,46 @@
+
+;<Program title>
+
+jmp start
+
+;data
+
+
+;code
+start: nop
+	LXI H, 4100H ; Initialize H register with the starting address of the original array
+	LXI D, 4200H ; Initialize D register with the starting address of the new array
+	MVI B, 10H ; Set B register to the size of the array
+
+
+LOOP:   MOV A, M ; Load a byte from the original array
+    	CPI 00H ; Compare the byte with 0 (end of array marker)
+    	JZ END ; If the byte is 0, jump to the end of the program
+    	MOV C, B ; Set C register to the remaining size of the array
+    	INX H ; Increment the memory pointer of the original array
+
+
+CHECK:	INX H ; Increment the memory pointer of the original array
+    	DCR C ; Decrement the counter
+    	MOV E, M ; Load a byte from the original array
+    	CMP A ; Compare the byte with the current byte in A register
+    	JZ SKIP ; If the bytes are the same, skip storing the byte in the new array
+    	MOV M, A ; Store the byte in the new array
+    	INX D ; Increment the memory pointer of the new array
+
+
+SKIP:   CPI 00H ; Compare the byte with 0 (end of array marker)
+    	JNZ CHECK ; If the byte is not 0, continue checking for duplicates
+    	JMP LOOP ; Jump back to the beginning of the loop
+
+
+END:	MOV M, 00H ; Store 0 (end of array marker) in the new array
+
+HLT ; Halt the program
+
+   	  
+	
+	 
+	
+
+
